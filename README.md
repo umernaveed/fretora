@@ -58,3 +58,12 @@ flutter run --dart-define=API_BASE_URL=https://freitora.online/api/mobile
 ## Next Native Setup Step
 
 After Flutter is installed, run `flutter create .` inside this folder to generate the native Android/iOS project folders. Then configure Firebase Cloud Messaging for push notifications and call `POST /api/mobile/device-token` after login for each tenant account.
+## Codemagic APK Build
+
+Use the included `codemagic.yaml` workflow named `android-apk`. It runs `flutter create .` first, so Codemagic can build even when the generated `android/` folder is not committed yet.
+
+The release APK is built with:
+
+```bash
+flutter build apk --release --dart-define=API_BASE_URL=https://freitora.online/api/mobile
+```
