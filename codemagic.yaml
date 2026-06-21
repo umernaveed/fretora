@@ -8,9 +8,9 @@ workflows:
       vars:
         API_BASE_URL: https://freitora.online/api/mobile
     scripts:
-      - name: Generate native Flutter project files
+      - name: Generate Android project files
         script: |
-          flutter create .
+          flutter create --platforms=android .
       - name: Get Flutter packages
         script: |
           flutter pub get
