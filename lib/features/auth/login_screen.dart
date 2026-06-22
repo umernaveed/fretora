@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/courier_brand_header.dart';
 import 'auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -48,14 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (courier?.logoUrl != null)
-                        Image.network(courier!.logoUrl!, height: 72, fit: BoxFit.contain),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Customer login',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                      CourierBrandHeader(
+                        courier: courier,
+                        title: courier?.companyName ?? 'Customer login',
+                        subtitle: 'Customer login',
                       ),
+                      const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       TextField(
                         controller: _email,

@@ -34,6 +34,19 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: scheme.primary,
+          foregroundColor: scheme.onPrimary,
+          minimumSize: const Size.fromHeight(48),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
+      listTileTheme: ListTileThemeData(
+        selectedColor: scheme.primary,
+        selectedTileColor: scheme.primaryContainer.withOpacity(.45),
+        iconColor: scheme.secondary,
+      ),
     );
   }
 

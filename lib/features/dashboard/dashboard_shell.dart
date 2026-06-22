@@ -9,6 +9,7 @@ import '../notifications/notifications_screen.dart';
 import '../packages/packages_screen.dart';
 import '../requests/requests_screen.dart';
 import '../settings/settings_screen.dart';
+import '../../widgets/courier_brand_header.dart';
 import '../wallet/wallet_screen.dart';
 import 'home_screen.dart';
 
@@ -48,10 +49,9 @@ class _DashboardShellState extends State<DashboardShell> {
         child: SafeArea(
           child: Column(
             children: [
-              ListTile(
-                leading: const Icon(Icons.local_shipping_outlined),
-                title: Text(courier?.companyName ?? 'Customer Portal'),
-                subtitle: Text(courier?.courierCode ?? ''),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: CourierBrandHeader(courier: courier, compact: true),
               ),
               const Divider(height: 1),
               Expanded(

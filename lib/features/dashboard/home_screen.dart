@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/courier_brand_header.dart';
 import '../auth/auth_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,17 +13,17 @@ class HomeScreen extends StatelessWidget {
     final data = auth.bootstrapData;
     final user = data?.user ?? const {};
     final summary = data?.summary ?? const {};
+    final courier = auth.activeCourier ?? data?.tenant;
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(
-          'Welcome, ${user['full_name'] ?? user['name'] ?? 'Customer'}',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+        CourierBrandHeader(
+          courier: courier,
+          title: 'Welcome, ${user['full_name'] ?? user['name'] ?? 'Customer'}',
+          subtitle: 'Mailbox: ${user['mailbox'] ?? '-'}',
         ),
-        const SizedBox(height: 8),
-        Text('Mailbox: ${user['mailbox'] ?? '-'}'),
-        const SizedBox(height: 16),
+        const SizedBox(height: 18),
         Wrap(
           spacing: 12,
           runSpacing: 12,
