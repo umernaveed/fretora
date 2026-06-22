@@ -8,6 +8,34 @@ const String defaultApiBaseUrl = String.fromEnvironment(
   defaultValue: 'https://freitora.online/api/mobile',
 );
 
+String apiErrorMessage(Object exception) {
+  if (exception is DioException) {
+    final data = exception.response?.data;
+    if (data is Map) {
+      final errors = data['errors'];
+      if (errors is Map && errors.isNotEmpty) {
+        final first = errors.values.first;
+        if (first is List && first.isNotEmpty) return '${first.first}';
+        if (first != null) return '$first';
+      }
+      final message = data['message'];
+      if (message != null && '$message'.trim().isNotEmpty) return '$message';
+    }
+    final statusCode = exception.response?.statusCode;
+    if (statusCode == 422) return 'Please check the information and try again.';
+    if (statusCode == 401) return 'Your login has expired. Please sign in again.';
+    if (statusCode == 403) return 'You do not have access to this courier account.';
+    if (statusCode != null && statusCode >= 500) return 'The server is having trouble. Please try again shortly.';
+    if (exception.type == DioExceptionType.connectionTimeout || exception.type == DioExceptionType.receiveTimeout) {
+      return 'Connection timed out. Please check your internet and try again.';
+    }
+    if (exception.type == DioExceptionType.connectionError) {
+      return 'Could not connect to the server. Please check your internet and try again.';
+    }
+  }
+
+  return exception.toString();
+}
 class ApiClient {
   ApiClient({required this.storage})
       : _dio = Dio(BaseOptions(

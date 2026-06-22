@@ -109,7 +109,7 @@ class AuthController extends ChangeNotifier {
       notifyListeners();
       return result;
     } catch (exception) {
-      error = exception.toString();
+      error = apiErrorMessage(exception);
       isBusy = false;
       notifyListeners();
       return false;
